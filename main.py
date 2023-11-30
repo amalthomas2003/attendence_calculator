@@ -17,7 +17,7 @@ sub_map_data="""1	101009/IT500A	 SOFTWARE DESIGN WITH UML
 10	101009/IT522T	 MINI PROJECT"""
 sub_map_dict=dict()
 for  _ in sub_map_data.split("\n"):
-    sub_map_dict[str(_.split()[1])]=str(_.split()[2])
+    sub_map_dict[str(_.split("\t")[1])]=str(_.split("\t")[2])
 ########################################################################
     
 
