@@ -1,6 +1,11 @@
 # attendence_calculator
 
 
+https://github.com/amalthomas2003/attendence_calculator/assets/94557654/0d3ac5cd-bfd0-4859-a426-1b17bafe72c3
+
+
+
+
 December 12, 2023
 
 
