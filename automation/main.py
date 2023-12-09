@@ -51,6 +51,7 @@ def scrape_web_page():
     from collections import defaultdict
     dict1 = defaultdict(int)
 
+        #This is set for S5 CSBS, Change this data for other branches(available in rsms sessional mark page)
     sub_map_data = """1	101009/IT500A	 SOFTWARE DESIGN WITH UML
     2	101009/IT500B	 COMPILER DESIGN
     3	101009/MS500C	 FUNDAMENTALS OF MANAGEMENT
@@ -82,7 +83,6 @@ def scrape_web_page():
     global total_hours_lost
     total_hours_lost=sum(dict1.values())
 
-    # Close the WebDriver after scraping
     driver.quit()
 
 
@@ -93,7 +93,6 @@ def index():
     if request.method == 'POST':
         userid = request.form['userid']
         password = request.form['password']
-        # Call the function to scrape the web page
         scrape_web_page()
         
 
@@ -103,6 +102,5 @@ def index():
     return render_template('index.html')
 
 
-# Run the Flask app in a non-blocking way
 if __name__ == '__main__':
     app.run(debug=True)
