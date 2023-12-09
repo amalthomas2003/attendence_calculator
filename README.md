@@ -2,11 +2,23 @@
 
 
 December 12, 2023
+
+
 [Update] Web automation using Selenium and Flask: Automation version 1.0
-required packages: 1)selinium
-                   2)flask
-                   3)webdriver_manager
+
+
+required packages:
+
+1)selinium
+
+
+2)flask
+
+3)webdriver_manager
+
+                   
 install packages using pip
+
                    
 (make sure latest chrome webdriver is installed [webdriver for chrome Version 120.0.6099.71 (Official Build) (64-bit) ] is provided in automation folder)
 
