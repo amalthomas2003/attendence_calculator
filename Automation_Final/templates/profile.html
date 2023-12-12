@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject Data Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between; /* Adjusted for placement */
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        /* Added styles for profile picture */
+        .profile-pic {
+            border-radius: 50%;
+            border: 2px solid #4caf50;
+            margin-right: 20px; /* Adjusted margin for separation */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>{{ name }}</h2>
+        <img src="{{ image }}" alt="Profile Pic" class="profile-pic" width="200">
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Subject Name</th>
+                <th>Subject Code</th>
+                <th>No of Hours Lost</th>
+                <th>Percentage</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h1>TOTAL HOURS LOST : {{ total_hours_lost }}</h1>
+</body>
+</html>
