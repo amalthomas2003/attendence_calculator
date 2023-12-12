@@ -31,7 +31,7 @@ https://github.com/amalthomas2003/attendence_calculator/assets/94557654/0d3ac5cd
 
 
 
-December 12, 2023
+December 10, 2023
 
 
 [Update] Web automation using Selenium and Flask: Automation version 1.0
