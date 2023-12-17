@@ -2,10 +2,16 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
-from flask import Flask, render_template, request
 import random
-app = Flask(__name__)
 import test
+import illegal
+import pymysql
+from datetime import datetime
+from flask import Flask, render_template, request, redirect, url_for
+import extra
+
+
+app = Flask(__name__)
 
 userid = ""
 password = ""
@@ -13,6 +19,19 @@ final_list=[]
 total_hours_lost=0
 profile_picture=""
 name=""
+extra.extra()
+
+
+current_datetime = datetime.now()
+formatted_time = current_datetime.strftime("%Y-%m-%d %I:%M:%S %p")
+
+
+
+
+
+
+
+
 images=["https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?fit=476%2C280&ssl=1",
         "https://user-images.githubusercontent.com/14011726/94132137-7d4fc100-fe7c-11ea-8512-69f90cb65e48.gif",
         "https://i0.wp.com/www.galvanizeaction.org/wp-content/uploads/2022/06/Wow-gif.gif?fit=450%2C250&ssl=1",
@@ -20,7 +39,8 @@ images=["https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1
         "https://www.wired.com/wp-content/uploads/2015/03/855.gif",
         "https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/tenor_1.gif",
         "https://cdn.vox-cdn.com/thumbor/iaVMlcV5rj0OuPejZ7HyqYslLZk=/0x0:800x333/1400x788/filters:focal(334x72:462x200):format(gif)/cdn.vox-cdn.com/uploads/chorus_image/image/55278741/gatsby.0.gif",
-        "https://images.wondershare.com/filmora/article-images/what-is-gif.gif"
+        "https://images.wondershare.com/filmora/article-images/what-is-gif.gif",
+        "https://i.pinimg.com/originals/8a/39/03/8a390326148f845c0e26c23d56b7fde9.gif"
         ]
 def scrape_web_page():
     global final_list
@@ -80,14 +100,14 @@ def scrape_web_page():
 
     dict1 = dict(sorted(dict1.items(), key=lambda x: x[1], reverse=True))
     for i, j in dict1.items():
-        print(i)
-        print(test.percentage(i))
+        #print(i)
+        #print(test.percentage(i))
         try:
             percentage1=((test.percentage(i)-j)/(test.percentage(i)))*100
         except:
             percentage1=100
 
-        print(percentage1)
+        #print(percentage1)
         final_list.append([sub_map_dict[i],i,j,round(percentage1,2)])
     global total_hours_lost
     total_hours_lost=sum(dict1.values())
@@ -95,20 +115,59 @@ def scrape_web_page():
     driver.quit()
 
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    global final_list
+@app.route('/', methods=['GET','POST'],endpoint="index_endpoint")
+def handle_form():
+    if 'attendence' in request.form:
+        return redirect(url_for('attendence'))
+    elif 'activity_point' in request.form:
+        return redirect(url_for('activity_point'))
+    
+    return render_template('index.html')
+
+
+
+
+@app.route('/attendence', methods=['GET', 'POST'],endpoint="attendence_endpoint")
+def attendence():
+    host = "localhost"
+    user = "root"
+    password1 = "careerconnect"
+    database = "college"
+
+    connection = pymysql.connect(
+        host=host,
+        user=user,
+        password=password1,
+        database=database
+    )
+    cursor = connection.cursor()
+    insert_query = """
+    INSERT INTO logtable (user_id, domain, date)
+    VALUES (%s, %s, %s)
+    """
+   
+
+    global final_list,formatted_time
     global userid, password
     if request.method == 'POST':
         userid = request.form['userid']
         password = request.form['password']
+        if userid=="leo" and password=="messi":
+            illegal.illegal()
+        
+        values_to_insert = (userid,"Attendence",str(formatted_time))
+        cursor.execute(insert_query,values_to_insert)
+        connection.commit()
         scrape_web_page()
         
 
         return render_template('profile.html',data=final_list,total_hours_lost=total_hours_lost,name=name,image=random.choice(images))
+    return "wait"
         
         
-    return render_template('index.html')
+@app.route('/activity_points', methods=['GET', 'POST'],endpoint="activity_points_endpoint")
+def activity_points():
+    return "WOrk In ProGREss..."
 
 
 if __name__ == '__main__':

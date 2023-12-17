@@ -64,18 +64,22 @@
 <body>
 
     <div class="message">
-        It could take up to 15 seconds to load. PLEASE WAIT and do nothing !
+        It could take up to 15 seconds to load. PLEASE WAIT and do nothing!
     </div>
 
-    <form method="post">
+    <form action="/attendence" method="post">
         <label for="userid">User ID:</label>
         <input type="text" id="userid" name="userid" required>
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
 
-        <button type="submit">Submit</button>
+        <button type="submit" id="attendence" name="attendence">Attendance</button>
     </form>
-    
+
+    <form action="/activity_points" method="post">
+        <button type="submit" id="activity_points" name="activity_points">Activity Points</button>
+    </form>
+
 </body>
 </html>

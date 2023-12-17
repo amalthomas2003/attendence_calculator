@@ -49,5 +49,6 @@ def percentage(sub):
     cursor.execute(query1)
     a=cursor.fetchall()[0][0]
     sum+=a
+    print(sub,sum)
 
     return sum
